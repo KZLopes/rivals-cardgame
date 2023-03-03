@@ -32,16 +32,16 @@ function drawCard(decksArr, num=1) {
     .then(res => res.json())
     .then(data => {
       let currentCard = data.cards[num-1];
-
+      
+      remainingCards = data.remaining;
       cardsInPlay[index] = (currentCard);
-      remainingCards = currentCard.remaining;
 
       document.querySelector(`#p${index+1} img`).src = currentCard.image;    
       document.querySelector(`#p${index+1} span`).textContent = `Remaining Cards ${remainingCards}`;
 
     })
     .then(() => {
-      resolution(cardsInPlay, remainingCards);
+      resolution(cardsInPlay, remainingCards);      
     })
     .catch(err => {
       console.log(`error while drawing from ${id}.\n${err}`);
@@ -80,7 +80,7 @@ function restart(decksArr) {
     .then(data => {
       document.querySelector(`#p${index+1} img`).src = './media/img/cardback.png';
       document.querySelector(`#p${index+1} span`).textContent = `Remaining Cards ${data.remaining}`;
-      document.querySelector('outcome').textContent = '';
+      document.querySelector('.outcome').textContent = '';
     })
     .catch(err => {
       console.log(`Error in restart method. error ${err}`)
